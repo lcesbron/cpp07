@@ -7,6 +7,7 @@ template <typename T>
 Array<T>::Array(Array const& toCopy):
 size_(toCopy.size_)
 {
+	this->arr_ = new T[this->size_];
 	for (unsigned int i = 0; i < this->size_; i++)
 	{
 		this->arr_[i] = toCopy.arr_[i];
@@ -27,7 +28,11 @@ Array<T>::~Array()
 template <typename T>
 Array<T>&	Array<T>::operator=(Array<T> const& toCopy)
 {
+	if (this == &toCopy)
+		return (*this);
 	this->size_ = toCopy.size_;
+	delete[] this->arr_;
+	this->arr_ = new T[this->size_];
 	for (unsigned int i = 0; i < this->size_; i++)
 	{
 		this->arr_[i] = toCopy.arr_[i];
